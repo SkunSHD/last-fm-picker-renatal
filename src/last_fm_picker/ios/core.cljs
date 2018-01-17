@@ -2,15 +2,11 @@
   (:require [reagent.core :as r :refer [atom]]
             [re-frame.core :refer [subscribe dispatch dispatch-sync]]
             [last-fm-picker.events]
-            [last-fm-picker.subs]))
+            [last-fm-picker.subs]
+            [last-fm-picker.rn :refer [ReactNative app-registry text view image touchable-highlight]]
+            [last-fm-picker.search-by-username-component :as search-by-username-component]
+ ))
 
-(def ReactNative (js/require "react-native"))
-
-(def app-registry (.-AppRegistry ReactNative))
-(def text (r/adapt-react-class (.-Text ReactNative)))
-(def view (r/adapt-react-class (.-View ReactNative)))
-(def image (r/adapt-react-class (.-Image ReactNative)))
-(def touchable-highlight (r/adapt-react-class (.-TouchableHighlight ReactNative)))
 
 (def logo-img (js/require "./images/cljs.png"))
 
@@ -19,7 +15,6 @@
 
 (defn makeAlbumRequest []
   (alert "request here"))
-
 
 (defn app-root []
   (let [greeting (subscribe [:get-greeting])]
@@ -31,9 +26,13 @@
        [touchable-highlight {:style {:background-color "#999" :padding 10 :border-radius 5}
                              :on-press #(alert "HELLO!")}
         [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "press me"]]
+
        [touchable-highlight {:style {:background-color "#999" :padding 10 :border-radius 5}
                              :on-press makeAlbumRequest}
-        [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "get album"]]])))
+        [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "get album"]]
+
+       [search-by-username-component/render]
+       ])))
 
 (defn init []
       (dispatch-sync [:initialize-db])
