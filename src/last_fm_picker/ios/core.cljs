@@ -9,9 +9,11 @@
 
 
 (def logo-img (js/require "./images/cljs.png"))
+(def log (.-log js/console))
+
 
 (defn alert [title]
-      (.alert (.-Alert ReactNative) title))
+      (.alert (.-Alert ReactNative) (str log)))
 
 (defn app-root []
   (let [greeting (subscribe [:get-greeting])]
