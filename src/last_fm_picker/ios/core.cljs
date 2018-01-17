@@ -17,6 +17,10 @@
 (defn alert [title]
       (.alert (.-Alert ReactNative) title))
 
+(defn makeAlbumRequest []
+  (alert "request here"))
+
+
 (defn app-root []
   (let [greeting (subscribe [:get-greeting])]
     (fn []
@@ -26,7 +30,10 @@
                :style  {:width 80 :height 80 :margin-bottom 30}}]
        [touchable-highlight {:style {:background-color "#999" :padding 10 :border-radius 5}
                              :on-press #(alert "HELLO!")}
-        [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "press me"]]])))
+        [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "press me"]]
+       [touchable-highlight {:style {:background-color "#999" :padding 10 :border-radius 5}
+                             :on-press makeAlbumRequest}
+        [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "get album"]]])))
 
 (defn init []
       (dispatch-sync [:initialize-db])
