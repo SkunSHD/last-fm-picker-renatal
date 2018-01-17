@@ -7,6 +7,7 @@
             [last-fm-picker.rn :refer [ReactNative app-registry text view image touchable-highlight]]
             [last-fm-picker.search-by-username-component :as search-by-username-component]
             [cljs.core.async :refer [<!]]
+            [cljs-http.client :as http]
 
  ))
 
@@ -14,11 +15,11 @@
 (def logo-img (js/require "./images/cljs.png"))
 (def log (.-log js/console))
 
-
 (defn alert [title]
       (.alert (.-Alert ReactNative) (str log)))
 
-
+(defn makeAlbumRequest []
+  (alert "makeAlbumRequest"))
 
 
 (defn app-root []
