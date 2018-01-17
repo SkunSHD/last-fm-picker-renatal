@@ -5,6 +5,8 @@
 
 		[cljs.core.async :refer [<!]]
 		[cljs-http.client :as http]
+
+		[last-fm-picker.search-by-username-model :as search-by-username-model]
 	)
 	(:require-macros [cljs.core.async.macros :refer [go]]))
 
@@ -14,6 +16,7 @@
 (defn test_ajax_call []
 	(go (let [response (<! (http/get "https://last-fm-server.herokuapp.com/user/artists/andiwillfly"))]
 		    (log  (:body response))
+		    (search-by-username-model/set_user_artists "andiwillfly"{:test 42} )
 		    )))
 
 
