@@ -1,10 +1,13 @@
 (ns last-fm-picker.ios.core
+  (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [reagent.core :as r :refer [atom]]
             [re-frame.core :refer [subscribe dispatch dispatch-sync]]
             [last-fm-picker.events]
             [last-fm-picker.subs]
             [last-fm-picker.rn :refer [ReactNative app-registry text view image touchable-highlight]]
             [last-fm-picker.search-by-username-component :as search-by-username-component]
+            [cljs.core.async :refer [<!]]
+
  ))
 
 
@@ -13,8 +16,8 @@
 (defn alert [title]
       (.alert (.-Alert ReactNative) title))
 
-(defn makeAlbumRequest []
-  (alert "request here"))
+
+
 
 (defn app-root []
   (let [greeting (subscribe [:get-greeting])]
