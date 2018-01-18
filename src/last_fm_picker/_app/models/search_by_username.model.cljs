@@ -9,7 +9,11 @@
 (def users (atom {}))
 
 
+(defn- str_to_cljs [string]
+	(js->clj (.parse js/JSON string) :keywordize-keys true))
+
 (defn set_user_artists [username albums]
-	(swap! users assoc :x (js->clj (.parse js/JSON albums)))
-	(log (type @users) "344" (.parse js/JSON albums))
+	(let [albums_map (str_to_cljs albums)]
+		(swap! users assoc username (:artist (:artists albums_map))))
+	(log (:name (nth (:leonasrdo @users) 1)))
 	)

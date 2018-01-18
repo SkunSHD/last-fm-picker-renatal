@@ -14,8 +14,8 @@
 
 
 (defn test_ajax_call []
-	(go (let [response (<! (http/get "https://last-fm-server.herokuapp.com/user/artists/andiwillfly"))]
-		    (search-by-username-model/set_user_artists "andiwillfly"(:body response) )
+	(go (let [response (<! (http/get "https://last-fm-server.herokuapp.com/user/artists/leonasrdo"))]
+		    (search-by-username-model/set_user_artists :leonasrdo(:body response) )
 		    )))
 
 
