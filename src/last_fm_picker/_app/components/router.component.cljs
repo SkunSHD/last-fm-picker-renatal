@@ -16,9 +16,13 @@
 (defn render_scene []
 	(case @router-model/current_scene
 		"HomeScene" [home_scene/render]
-		"HomeScene1" [search_artists_scene/render]))
+		"SearchArtistsScene" [search_artists_scene/render]))
 
 
 (defn render []
-	[render_scene])
+	[view
+	 [button {:title "Go home scene" :on-press #(router-model/set_current_scene "HomeScene")}]
+	 [button {:title "Go search artists scene" :on-press #(router-model/set_current_scene "SearchArtistsScene")}]
+	 [render_scene]]
+	)
 
