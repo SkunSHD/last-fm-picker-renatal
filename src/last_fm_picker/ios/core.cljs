@@ -7,8 +7,6 @@
             [last-fm-picker.rn :refer [ReactNative app-registry text scroll input view image touchable-highlight]]
             [cljs.core.async :refer [<!]]
             [cljs-http.client :as http]
-;            Models
-            [last-fm-picker._app.models.user :as user-model]
 ;            Components
             [last-fm-picker._app.router :as router]
  ))
@@ -24,20 +22,7 @@
                [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} @greeting]
                [image {:source logo-img
                        :style  {:width 80 :height 80 :margin-bottom 30}}]
-
-               (if (nil? @user-model/user)
-	               [view {:style {:width 300}}
-	                [input {
-                       :value "username"
-                       :autoCapitalize "none"
-                       :style { :borderColor "orange" :padding 2 :borderWidth 1}}]
-	                [input {
-                       :value "pass"
-                       :autoCapitalize "none"
-                       :style { :borderColor "orange" :padding 2 :borderWidth 1}}]]
-	               [router/render])
-               ]]
-	   )))
+               [router/render]]])))
 
 (defn init []
       (dispatch-sync [:initialize-db])

@@ -7,3 +7,6 @@
 
 (def user (atom nil))
 
+(defn set_username [text]
+	reset! user text)
+
