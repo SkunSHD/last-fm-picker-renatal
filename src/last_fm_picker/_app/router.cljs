@@ -10,7 +10,6 @@
 ))
 
 
-(def log (.-log js/console))
 
 
 (defn render_scene []
