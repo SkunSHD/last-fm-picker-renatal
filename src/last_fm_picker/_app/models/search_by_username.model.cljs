@@ -1,4 +1,4 @@
-(ns last-fm-picker.search-by-username-model
+(ns last-fm-picker._app.models.search-by-username
 	(:require
 		[reagent.core :as r :refer [atom]]
 
@@ -9,8 +9,7 @@
 
 
 (def log (.-log js/console))
-(defn- -str_to_cljs [string]
-	(js->clj (.parse js/JSON string) :keywordize-keys true))
+(defn- -cljs [string] (js->clj (.parse js/JSON string) :keywordize-keys true))
 
 
 ; ========
@@ -23,50 +22,40 @@
 
 ; ========
 ; Public
-(defn set_current_search [search_text]
-	(reset! current_search search_text))
-
-
-(defn set_current_search_artists [artists]
-	(reset! current_search_artists artists))
+(defn set_current_search [search_text] (reset! current_search search_text))
+(defn set_current_search_artists [artists] (reset! current_search_artists artists))
 
 
 (defn set_user_artists [albums]
-	(let [albums_map (-str_to_cljs albums)]
+	(let [albums_map (-cljs albums)]
 		(swap! users_artists assoc @current_search(:artist (:artists albums_map)))
 		(log "SET set_current_search_artists!! " (:artist (:artists albums_map)))
-		(set_current_search_artists (:artist (:artists albums_map))))
-	)
+		(set_current_search_artists (:artist (:artists albums_map)))))
 
 
-; ========
-; Private
-(defn- -get_user_artists []
+(defn get_user_artists []
 	(log "SEARCH: " (str "https://last-fm-server.herokuapp.com/user/artists/" @current_search))
 	(set_current_search_artists nil)
 	(go (let [response (<! (http/get (str "https://last-fm-server.herokuapp.com/user/artists/" @current_search)))]
-		    (log (:error (-str_to_cljs (:body response))))
-		    (if (:error (-str_to_cljs (:body response)))
+		    (if (:error (-cljs (:body response)))
 			    (set_current_search_artists [])
 			    (set_user_artists (:body response) ))
 		    )))
 
 
-(defn- -search_user_artists []
-	(log (clj->js @users_artists))
+(defn search_user_artists []
 	(if (get @users_artists @current_search)
 		(log "CACHE!" (set_current_search_artists (get @users_artists @current_search)))
-		(-get_user_artists))
+		(get_user_artists))
 	)
 
 
 
 ; ========
 ; Watchers
-(defn- on_current_search_change [key atom old new]
+(defn- -on_current_search_change [key atom old new]
 	(js/clearTimeout @timeout)
-	(reset! timeout(js/setTimeout -search_user_artists 1000)))
+	(reset! timeout(js/setTimeout search_user_artists 500)))
 
-
-(add-watch current_search "current_search" on_current_search_change)
+(add-watch current_search "current_search" -on_current_search_change)
 

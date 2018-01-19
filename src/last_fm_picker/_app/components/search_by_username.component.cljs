@@ -1,4 +1,4 @@
-(ns last-fm-picker.search-by-username-component
+(ns last-fm-picker._app.components.search-by-username
 	(:require
 		[reagent.core :as r :refer [atom]]
 		[last-fm-picker.rn :refer [ReactNative app-registry text button link input view image touchable-highlight]]
@@ -6,7 +6,7 @@
 		[cljs.core.async :refer [<!]]
 		[cljs-http.client :as http]
 
-		[last-fm-picker.search-by-username-model :as search-by-username-model]
+		[last-fm-picker._app.models.search-by-username :as search-by-username-model]
 	)
 	(:require-macros [cljs.core.async.macros :refer [go]]))
 
@@ -23,7 +23,17 @@
 		 :value @search-by-username-model/current_search
 		 :onChangeText on_change_text
 		 :autoCapitalize "none"
-		 :style { :borderColor "gray" :padding 5 :borderWidth 1}}])
+		 :style { :borderColor "orange" :padding 5 :borderWidth 1}}])
+
+
+(defn render_artist [artist]
+	[view {:style {:borderColor "black" :borderWidth 1 :margin 5 :padding 5}}
+	 [text (:name artist)]
+	 (if (empty? (:#text (nth (:image artist) 0)))
+		 nil
+		 [image {:source {:uri (:#text (nth (:image artist) 0))}
+		         :style  {:width 80 :height 80 :margin 5}}])
+	 ])
 
 
 (defn render_search_results []
@@ -34,13 +44,7 @@
 			 [text "No artists"]
 			 [view
 			  (for [artist @search-by-username-model/current_search_artists]
-				  ^{:key (:name artist)} [view {:style {:borderColor "black" :borderWidth 1 :margin 5 :padding 5}}
-				                          [text (:name artist)]
-				                          (if (empty? (:#text (nth (:image artist) 0)))
-					                          nil
-					                          [image {:source {:uri (:#text (nth (:image artist) 0))}
-					                                  :style  {:width 80 :height 80 :margin 5}}])
-				                          ])]
+				  ^{:key (:name artist)} [render_artist artist])]
 			 )
 		 )])
 

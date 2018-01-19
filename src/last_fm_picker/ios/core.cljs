@@ -5,10 +5,11 @@
             [last-fm-picker.events]
             [last-fm-picker.subs]
             [last-fm-picker.rn :refer [ReactNative app-registry text scroll view image touchable-highlight]]
-            [last-fm-picker.search-by-username-component :as search-by-username-component]
             [cljs.core.async :refer [<!]]
             [cljs-http.client :as http]
-
+;            Components
+            [last-fm-picker._app.components.router :as router-component]
+            [last-fm-picker._app.components.search-by-username :as search-by-username-component]
  ))
 
 
@@ -33,9 +34,7 @@
                                      :on-press #(alert "HELLO!")}
                 [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "press me"]]
 
-               [touchable-highlight {:style {:background-color "#999" :padding 10 :border-radius 5}
-                                     :on-press makeAlbumRequest}
-                [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "get album"]]
+               [router-component/render]
 
                [search-by-username-component/render]
                ]]
