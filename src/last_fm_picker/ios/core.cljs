@@ -8,7 +8,7 @@
             [cljs.core.async :refer [<!]]
             [cljs-http.client :as http]
 ;            Components
-            [last-fm-picker._app.components.router :as router-component]
+            [last-fm-picker._app.router :as router]
  ))
 
 
@@ -22,7 +22,7 @@
                [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} @greeting]
                [image {:source logo-img
                        :style  {:width 80 :height 80 :margin-bottom 30}}]
-               [router-component/render]
+               [router/render]
                ]]
 	   )))
 
