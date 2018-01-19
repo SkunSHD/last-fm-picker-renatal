@@ -9,7 +9,6 @@
             [cljs-http.client :as http]
 ;            Components
             [last-fm-picker._app.components.router :as router-component]
-            [last-fm-picker._app.components.search-by-username :as search-by-username-component]
  ))
 
 
@@ -35,8 +34,6 @@
                 [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "press me"]]
 
                [router-component/render]
-
-               [search-by-username-component/render]
                ]]
 	   )))
 
