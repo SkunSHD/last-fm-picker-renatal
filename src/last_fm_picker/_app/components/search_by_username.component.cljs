@@ -27,7 +27,8 @@
 
 
 (defn render_artist [artist]
-	[view {:style {:borderColor "black" :borderWidth 1 :margin 5 :padding 5}}
+	[link {:style {:borderColor "black" :borderWidth 1 :margin 5 :padding 5}
+		   :on-press #(log (:name artist))}
 	 [text (:name artist)]
 	 (if (empty? (:#text (nth (:image artist) 0)))
 		 nil

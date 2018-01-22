@@ -29,4 +29,3 @@
 	(search-by-username-model/set_current_search "")
 	(search-by-username-model/set_current_search_artists [])
 	)
-
