@@ -10,12 +10,18 @@
 
 (def log (.-log js/console))
 
+
+; Private
 (defn- -on_profile_enter [key atom old new]
-	(if (= (:name new) "ProfileScene") (log "Welcome!!!")))
+	(if (= (:name new) "ProfileScene") (log "GET urser profile for: " @user-model/username)))
 
 
+; Watchers
 (add-watch router-model/current_scene "on_profile_scene_enter" -on_profile_enter)
+
 
 (defn render []
 	[view {:style {:width 150}}
 	 [text "profile!"]])
+
+

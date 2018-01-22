@@ -18,6 +18,8 @@
 
 
 (defn log_in []
+;	TODO: Add ajax request to http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user=rj&api_key=fb9d42de15720bcb20e6ed6fc5016a4c&format=json
+;	TODO: And save as user-model/user and get rid of is_authorized
 	(reset! isAuthorized true))
 
 
@@ -29,12 +31,10 @@
 
 ; Private
 (defn- -set_search []
-	(log "SERT!!")
 	(search-by-username-model/set_current_search @username))
 
 
 (defn- -clear_search []
-	(log "CLEAR!!")
 	(search-by-username-model/set_current_search "")
 	(search-by-username-model/set_current_search_artists []))
 
