@@ -58,4 +58,3 @@
 	(reset! timeout(js/setTimeout search_user_artists 500)))
 
 (add-watch current_search "current_search" -on_current_search_change)
-
