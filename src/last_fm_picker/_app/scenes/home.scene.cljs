@@ -6,6 +6,11 @@
 		[last-fm-picker._app.models.user :as user-model]
 		))
 
+(def log (.-log js/console))
+
+(defn get_input_text [event]
+	(.-text (.-nativeEvent event)))
+
 (defn render []
 	[view {:style {:width 150}}
 		[text "HOME PAGE!!!!!!!"]
@@ -17,10 +22,11 @@
 									:on-press user-model/loginOut}]]
 			 [view
 				[input {
-								:onChangeText #(user-model/set_username %)
-								:value @user-model/user
-								:autoCapitalize "none"
-								:style { :borderColor "orange" :padding 2 :borderWidth 1}}]
+						   :onSubmitEditing #(user-model/loginIn (get_input_text %))
+						   :onChangeText #(user-model/set_username %)
+						   :value @user-model/user
+						   :autoCapitalize "none"
+						   :style { :borderColor "orange" :padding 2 :borderWidth 1}}]
 				[button {
 									:title "Login"
 									:on-press user-model/loginIn}]])])
