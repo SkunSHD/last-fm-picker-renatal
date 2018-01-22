@@ -15,6 +15,7 @@
 (def logo-img (js/require "./images/cljs.png"))
 (def log (.-log js/console))
 
+
 (defn app-root []
   (let [greeting (subscribe [:get-greeting])]
     (fn []

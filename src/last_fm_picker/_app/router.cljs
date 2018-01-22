@@ -13,7 +13,7 @@
 
 
 (defn render_scene []
-	(case @router-model/current_scene
+	(case (:name @router-model/current_scene)
 		"HomeScene" [home_scene/render]
 		"SearchArtistsScene" [search_artists_scene/render]))
 
