@@ -6,7 +6,15 @@
 
 
 (def user (atom nil))
+(def isAuthorized (atom false))
 
 (defn set_username [text]
-	reset! user text)
+	(reset! user text))
+
+(defn loginIn []
+	(reset! isAuthorized true))
+
+(defn loginOut []
+	(reset! user nil)
+	(reset! isAuthorized false))
 

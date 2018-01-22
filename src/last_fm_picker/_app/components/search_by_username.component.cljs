@@ -5,9 +5,9 @@
 
 		[cljs.core.async :refer [<!]]
 		[cljs-http.client :as http]
-
+		; Models
 		[last-fm-picker._app.models.search-by-username :as search-by-username-model]
-	)
+		[last-fm-picker._app.models.user :as user-model])
 	(:require-macros [cljs.core.async.macros :refer [go]]))
 
 
@@ -51,6 +51,9 @@
 
 (defn render []
 	[view {:style {:borderColor "gray" :borderWidth 1 :padding 10 :paddingBottom 20 :margin 20 :width 350}}
-	 [text {:style {:font-size 15 :margin-bottom 10 :text-align "center"}} "[search albums by username: " @search-by-username-model/current_search "]"]
-	 [render_search_input]
+	 (if @user-model/isAuthorized
+		 [text "Logged IN"]
+		 [view
+			[text {:style {:font-size 15 :margin-bottom 10 :text-align "center"}} "[search albums by username: " @search-by-username-model/current_search "]"]
+			[render_search_input]])
 	 [render_search_results]])
