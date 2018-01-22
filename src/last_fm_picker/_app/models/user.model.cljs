@@ -8,23 +8,23 @@
 (def log (.-log js/console))
 
 
-(def user (atom nil))
+(def username (atom nil))
 (def isAuthorized (atom false))
 
 
 (defn set_username [text]
-	(reset! user text))
+	(reset! username text))
 
 
-(defn loginIn []
+(defn log_in []
 	(reset! isAuthorized true)
-	(search-by-username-model/set_current_search @user)
+	(search-by-username-model/set_current_search @username)
 	(search-by-username-model/get_user_artists)
 	)
 
 
-(defn loginOut []
-	(reset! user nil)
+(defn log_out []
+	(reset! username nil)
 	(reset! isAuthorized false)
 	(search-by-username-model/set_current_search "")
 	(search-by-username-model/set_current_search_artists [])
