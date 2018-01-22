@@ -8,25 +8,26 @@
 
 (def log (.-log js/console))
 
+
 (defn get_input_text [event]
 	(.-text (.-nativeEvent event)))
 
+
 (defn render []
 	[view {:style {:width 150}}
-		[text "HOME PAGE!!!!!!!"]
 		 (if @user-model/isAuthorized
 			 [view
-				[text "KU! " @user-model/user]
+				[text "KU! " @user-model/username]
 				[button {
 									:title "Logout"
-									:on-press user-model/loginOut}]]
+									:on-press user-model/log_out}]]
 			 [view
 				[input {
-						   :onSubmitEditing #(user-model/loginIn (get_input_text %))
+						   :onSubmitEditing #(user-model/log_in (get_input_text %))
 						   :onChangeText #(user-model/set_username %)
-						   :value @user-model/user
+						   :value @user-model/username
 						   :autoCapitalize "none"
 						   :style { :borderColor "orange" :padding 2 :borderWidth 1}}]
 				[button {
 									:title "Login"
-									:on-press user-model/loginIn}]])])
+									:on-press user-model/log_in}]])])
