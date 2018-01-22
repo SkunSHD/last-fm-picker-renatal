@@ -7,26 +7,43 @@
 
 (def log (.-log js/console))
 
-
+; Atoms
 (def username (atom nil))
 (def isAuthorized (atom false))
 
 
+; Public
 (defn set_username [text]
 	(reset! username text))
 
 
 (defn log_in []
-	(reset! isAuthorized true)
-	(search-by-username-model/set_current_search @username)
-	(search-by-username-model/get_user_artists)
-	)
+	(reset! isAuthorized true))
 
 
 (defn log_out []
 	(reset! username nil)
-	(reset! isAuthorized false)
-	(search-by-username-model/set_current_search "")
-	(search-by-username-model/set_current_search_artists [])
-	)
+	(reset! isAuthorized false))
 
+
+
+; Private
+(defn- -set_search []
+	(log "SERT!!")
+	(search-by-username-model/set_current_search @username))
+
+
+(defn- -clear_search []
+	(log "CLEAR!!")
+	(search-by-username-model/set_current_search "")
+	(search-by-username-model/set_current_search_artists []))
+
+
+(defn- -set_search_by_username_model []
+	(if (= @isAuthorized true) (-set_search) (-clear_search)))
+
+; Watchers
+(defn- -on_isAuthorized_change [key atom old new]
+	(if-not(= old new) (-set_search_by_username_model)))
+
+(add-watch isAuthorized "isAuthorized_chjange" -on_isAuthorized_change)

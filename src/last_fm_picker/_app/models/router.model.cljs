@@ -7,6 +7,7 @@
 (def groupEnd (.-log js/console))
 
 
+; Atoms
 (def current_scene (atom { :name "HomeScene" :params {}}))
 
 
