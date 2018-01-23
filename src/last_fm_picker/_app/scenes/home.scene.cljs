@@ -13,21 +13,29 @@
 	(.-text (.-nativeEvent event)))
 
 
+(defn isNotEmptyString [inputText]
+	(not))
+
+
+(defn login []
+	(if-not (clojure.string/blank? @user-model/username) (user-model/log_in)))
+
+
 (defn render []
 	[view {:style {:width 150}}
 		 (if @user-model/isAuthorized
 			 [view
 				[text "KU! " @user-model/username]
 				[button {
-									:title "Logout"
-									:on-press user-model/log_out}]]
+							:title "Logout"
+							:on-press user-model/log_out}]]
 			 [view
 				[input {
-						   :onSubmitEditing #(user-model/log_in (get_input_text %))
+						   :onSubmitEditing login
 						   :onChangeText #(user-model/set_username %)
 						   :value @user-model/username
 						   :autoCapitalize "none"
 						   :style { :borderColor "orange" :padding 2 :borderWidth 1}}]
 				[button {
-									:title "Login"
-									:on-press user-model/log_in}]])])
+							:title "Login"
+							:on-press login}]])])
