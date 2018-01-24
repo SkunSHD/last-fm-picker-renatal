@@ -13,15 +13,20 @@
 (defn- -cljs [string] (js->clj (.parse js/JSON string) :keywordize-keys true))
 
 
+(defn- page_artist_name []
+	(:name (:params @router-model/current_scene)))
+
+
 (defn- -on_did_mount []
-	(artists-model/fetch_artist (:name (:params @router-model/current_scene)))
+	(artists-model/fetch_artist (page_artist_name))
 	)
 
 
 (defn- -on_render []
 	[view
-	 [text "ARTIST DETAILS:"]
-	 [text (str @artists-model/artists)]]
+	 [text "ARTIST DETAILS"]
+	 [text "Band name: " (page_artist_name)]
+	 [text (str (get @artists-model/artists (page_artist_name)))]]
 	)
 
 
