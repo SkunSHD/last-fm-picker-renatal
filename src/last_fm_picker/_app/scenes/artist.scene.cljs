@@ -13,13 +13,13 @@
 (defn- -cljs [string] (js->clj (.parse js/JSON string) :keywordize-keys true))
 
 
+; ==================
+; Private
 (defn- page_artist_name []
 	(:name (:params @router-model/current_scene)))
 
-
 (defn- -on_did_mount []
-	(artists-model/fetch_artist (page_artist_name))
-	)
+	(artists-model/fetch_artist (page_artist_name)))
 
 
 (defn- -on_render []
@@ -29,7 +29,8 @@
 	 [text (str (get @artists-model/artists (page_artist_name)))]]
 	)
 
-
+; ==================
+; Public
 (defn render []
 	[(r/create-class {
 						:component-did-mount -on_did_mount

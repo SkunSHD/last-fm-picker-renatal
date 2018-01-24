@@ -8,16 +8,20 @@
 		)
 	(:require-macros [cljs.core.async.macros :refer [go]]))
 
+
 (def log (.-log js/console))
 (defn- -cljs [string] (js->clj (.parse js/JSON string) :keywordize-keys true))
 
 
+; ==================
+; Atoms
 (def artists (atom {}))
 
 
+; ==================
+; Public
 (defn set_artist [artist-name artist]
-	(swap! artists assoc artist-name artist)
-	)
+	(swap! artists assoc artist-name artist))
 
 
 (defn fetch_artist [artist-name]

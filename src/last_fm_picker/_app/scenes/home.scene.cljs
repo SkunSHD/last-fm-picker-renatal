@@ -26,7 +26,6 @@
 	[view {:style {:width 150}}
 		 (if @user-model/isAuthorized
 			 [view
-				[text "KU!ee  " @user-model/username]
                 [button {:title "Go profile scene" :on-press #(router-model/set_current_scene "ProfileScene")}]
 				[button {
 							:title "Logout"
