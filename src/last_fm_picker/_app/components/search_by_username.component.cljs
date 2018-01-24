@@ -7,7 +7,8 @@
 		[cljs-http.client :as http]
 		; Models
 		[last-fm-picker._app.models.search-by-username :as search-by-username-model]
-		[last-fm-picker._app.models.user :as user-model])
+		[last-fm-picker._app.models.user :as user-model]
+		[last-fm-picker._app.models.router :as router-model])
 	(:require-macros [cljs.core.async.macros :refer [go]]))
 
 
@@ -28,7 +29,8 @@
 
 (defn render_artist [artist]
 	[link {:style {:borderColor "black" :borderWidth 1 :margin 5 :padding 5}
-		   :on-press #(log (:name artist))}
+		   :on-press #(router-model/set_current_scene "ArtistScene" artist)}
+
 	 [text (:name artist)]
 	 (if (empty? (:#text (nth (:image artist) 0)))
 		 nil

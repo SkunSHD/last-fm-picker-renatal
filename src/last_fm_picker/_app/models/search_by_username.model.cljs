@@ -55,6 +55,6 @@
 ; Watchers
 (defn- -on_current_search_change [key atom old new]
 	(js/clearTimeout @timeout)
-	(reset! timeout(js/setTimeout search_user_artists 500)))
+	(reset! timeout(js/setTimeout search_user_artists 1000)))
 
 (add-watch current_search "current_search" -on_current_search_change)
