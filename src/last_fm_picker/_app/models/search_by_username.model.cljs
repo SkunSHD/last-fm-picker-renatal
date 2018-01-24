@@ -46,7 +46,7 @@
 (defn search_user_artists []
 	(if (get @users_artists @current_search)
 		(log "CACHE!" (set_current_search_artists (get @users_artists @current_search)))
-		(get_user_artists))
+		(if-not (empty? @current_search) (get_user_artists)))
 	)
 
 

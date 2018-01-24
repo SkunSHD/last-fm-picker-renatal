@@ -2,8 +2,9 @@
 	(:require
 		[reagent.core :as r :refer [atom]]
 		[last-fm-picker.rn :refer [ReactNative app-registry text button link input view image touchable-highlight]]
-;   Models
+;       Models
 		[last-fm-picker._app.models.user :as user-model]
+		[last-fm-picker._app.models.router :as router-model]
 		))
 
 (def log (.-log js/console))
@@ -25,7 +26,8 @@
 	[view {:style {:width 150}}
 		 (if @user-model/isAuthorized
 			 [view
-				[text "KU! " @user-model/username]
+				[text "KU!ee  " @user-model/username]
+                [button {:title "Go profile scene" :on-press #(router-model/set_current_scene "ProfileScene")}]
 				[button {
 							:title "Logout"
 							:on-press user-model/log_out}]]
