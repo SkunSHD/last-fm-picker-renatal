@@ -3,40 +3,41 @@
 		[reagent.core :as r :refer [atom]]
 		[last-fm-picker.rn :refer [ReactNative app-registry text button link input view image touchable-highlight]]
 ;       Models
-		[last-fm-picker._app.models.user :as user-model]
-		[last-fm-picker._app.models.router :as router-model]
+		[last-fm-picker._app.models.user :as user_model]
+		[last-fm-picker._app.models.router :as router_model]
 		))
 
 (def log (.-log js/console))
 
 
-(defn get_input_text [event]
-	(.-text (.-nativeEvent event)))
-
-
-(defn isNotEmptyString [inputText]
-	(not))
-
-
 (defn login []
-	(if-not (clojure.string/blank? @user-model/username) (user-model/log_in)))
+	(if-not (clojure.string/blank? @user_model/username) (user_model/log_in)))
+
+
+(defn render_username_input []
+	[input {
+		       :onSubmitEditing login
+		       :onChangeText #(user_model/set_username %)
+		       :value @user_model/username
+		       :autoCapitalize "none"
+		       :style { :borderColor "orange" :padding 2 :borderWidth 1}}])
+
+
+(defn render_auth_button []
+	(if (= @user_model/is_user_fetching true)
+		[button { :title "Loggin in..." :on-press (fn [])}]
+		[button { :title "Login" :on-press login}] ))
 
 
 (defn render []
 	[view {:style {:width 150}}
-		 (if @user-model/isAuthorized
+		 (if (empty? @user_model/user)
 			 [view
-                [button {:title "Go profile scene" :on-press #(router-model/set_current_scene "ProfileScene")}]
-				[button {
-							:title "Logout"
-							:on-press user-model/log_out}]]
+				[render_username_input]
+				[render_auth_button]]
 			 [view
-				[input {
-						   :onSubmitEditing login
-						   :onChangeText #(user-model/set_username %)
-						   :value @user-model/username
-						   :autoCapitalize "none"
-						   :style { :borderColor "orange" :padding 2 :borderWidth 1}}]
-				[button {
-							:title "Login"
-							:on-press login}]])])
+			  [button {:title "Go profile scene" :on-press #(router_model/set_current_scene "ProfileScene" {})}]
+			  [button {
+				          :title "Logout"
+				          :on-press user_model/log_out}]] )
+	])

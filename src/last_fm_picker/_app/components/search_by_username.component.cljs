@@ -15,10 +15,14 @@
 (def log (.-log js/console))
 
 
+; ==================
+; Private
 (defn- on_change_text [search_text]
 	(search-by-username-model/set_current_search search_text))
 
 
+; ==================
+; Public
 (defn render_search_input []
 	[input {
 		 :value @search-by-username-model/current_search

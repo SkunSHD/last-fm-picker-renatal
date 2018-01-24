@@ -26,7 +26,7 @@
 
 (defn render []
 	[view
-	 (if (= @user_model/isAuthorized true) [text "Logged in as: " @user_model/username] nil)
+	 (if-not (empty? @user_model/user true) [text "Logged in as: " (:realname @user_model/user)] nil)
 	 [button {:title "Go home scene" :on-press #(router_model/set_current_scene "HomeScene" {})}]
 	 [button {:title "Go search artists scene" :on-press #(router_model/set_current_scene "SearchArtistsScene" {})}]
 	 [render_scene]]
