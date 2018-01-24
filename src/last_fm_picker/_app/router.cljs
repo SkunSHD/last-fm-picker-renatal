@@ -8,6 +8,7 @@
 		[last-fm-picker._app.scenes.home :as home_scene]
 		[last-fm-picker._app.scenes.profile :as profile_scene]
 		[last-fm-picker._app.scenes.search_artists :as search_artists_scene]
+		[last-fm-picker._app.scenes.artist :as artist_scene]
 ))
 
 
@@ -16,6 +17,7 @@
 (defn render_scene []
 	(case (:name @router-model/current_scene)
 		"HomeScene" [home_scene/render]
+		"ArtistScene" [artist_scene/render]
 		"ProfileScene" [profile_scene/render]
 		"SearchArtistsScene" [search_artists_scene/render]
 ))

@@ -12,7 +12,7 @@
 
 
 (defn set_current_scene [name params]
-	(reset! current_scene { :name name :params (if (empty? params) {} params)}))
+	(reset! current_scene { :name name :params params }))
 
 
 ; ========
